@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f0e6">
+  <title>MoranMini HOUSE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+  <div id="app" class="app">
+    <!-- Intro flow -->
+    <section id="scene-main" class="scene scene--active" aria-label="메인">
+      <div class="paper">
+        <svg class="doodle doodle--top" viewBox="0 0 320 80" aria-hidden="true">
+          <path d="M10 50 Q40 10 80 40 T150 35 T220 45 T300 20" fill="none" stroke="#c9a87c" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="260" cy="18" r="6" fill="#e8c9a8"/>
+        </svg>
+        <h1 class="title">MoranMini<br>HOUSE</h1>
+        <p class="subtitle">작지만 행복만은 큰집으로</p>
+        <button type="button" class="btn btn--primary" id="btn-start">초대장 열기</button>
+      </div>
+    </section>
+
+    <section id="scene-tshirts" class="scene" aria-label="티셔츠">
+      <div class="paper paper--wide">
+        <p class="hint">우리 집 티셔츠예요 👕</p>
+        <div class="tshirt-row">
+          <button type="button" class="tshirt-btn" id="tshirt-1" aria-label="티셔츠 1">
+            <img src="static/images/tshirt-1.png" alt="MoranMini 티셔츠 1" width="140" height="140">
+          </button>
+          <button type="button" class="tshirt-btn" id="tshirt-2" aria-label="티셔츠 2">
+            <img src="static/images/tshirt-2.png" alt="MoranMini 티셔츠 2" width="140" height="140">
+          </button>
+        </div>
+        <p class="hint hint--small">둘 다 눌러보면 초인종이 나와요</p>
+      </div>
+    </section>
+
+    <section id="scene-doorbell" class="scene" aria-label="초인종">
+      <div class="paper">
+        <p class="hint">초인종을 눌러주세요</p>
+        <button type="button" class="doorbell" id="btn-doorbell" aria-label="초인종">
+          <span class="doorbell__ring"></span>
+          <span class="doorbell__btn"></span>
+        </button>
+      </div>
+    </section>
+
+    <section id="scene-dingdong" class="scene" aria-label="딩동">
+      <div class="paper">
+        <p class="dingdong" id="dingdong-text">딩동</p>
+      </div>
+    </section>
+
+    <section id="scene-door-before" class="scene" aria-label="문 앞">
+      <div class="paper paper--door">
+        <img class="door-before" src="static/images/door-before.png" alt="문 앞" width="280" height="360">
+        <button type="button" class="btn btn--knock" id="btn-knock">노크</button>
+      </div>
+    </section>
+
+    <section id="scene-door-open" class="scene" aria-label="문 열림">
+      <div class="paper paper--door">
+        <div class="door-open-wrap">
+          <img class="door-before door-before--open" src="static/images/door-before.png" alt="열린 문" width="280" height="360">
+          <div class="door-light"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Invitation scroll -->
+    <section id="scene-invitation" class="scene scene--scroll" aria-label="초대장">
+      <button type="button" class="music-toggle" id="btn-music" aria-label="음악 토글" aria-pressed="true">
+        <span class="music-toggle__icon">♪</span>
+      </button>
+
+      <div class="invite-scroll" id="invite-scroll">
+        <article class="invite-card" id="section-invitation">
+          <svg class="doodle" viewBox="0 0 300 60" aria-hidden="true">
+            <path d="M20 40 C60 5, 120 5, 150 35 S240 55, 280 25" fill="none" stroke="#c9a87c" stroke-width="2.5"/>
+          </svg>
+          <p class="invite-label">INVITATION</p>
+          <h2 class="invite-title">초대합니다</h2>
+          <p class="invite-body">작지만 행복만은 큰집으로<br>편한 차림으로 오면 돼요</p>
+        </article>
+
+        <article class="invite-card invite-card--fun" id="section-euak">
+          <p class="euak">으악.</p>
+        </article>
+
+        <article class="invite-card" id="section-datetime">
+          <p class="invite-label">DATE &amp; TIME</p>
+          <div class="time-block">
+            <p class="time-ko">십팔시 - 2</p>
+            <p class="time-ko">십육시</p>
+            <p class="time-en">(4PM)</p>
+          </div>
+        </article>
+
+        <article class="invite-card" id="section-menu">
+          <p class="invite-label">TODAY'S MENU</p>
+          <ul class="menu-list" id="menu-list">
+            <li><label><input type="checkbox" name="menu" value="아구찜"> 아구찜</label></li>
+            <li><label><input type="checkbox" name="menu" value="떡볶이"> 떡볶이</label></li>
+            <li><label><input type="checkbox" name="menu" value="갈비찜"> 갈비찜</label></li>
+            <li><label><input type="checkbox" name="menu" value="회"> 회</label></li>
+          </ul>
+        </article>
+
+        <article class="invite-card" id="section-rsvp">
+          <p class="invite-label">RSVP</p>
+          <p class="rsvp-q">오실 건가요?</p>
+          <div class="rsvp-btns">
+            <button type="button" class="btn btn--rsvp">네</button>
+            <button type="button" class="btn btn--rsvp">네</button>
+            <button type="button" class="btn btn--rsvp">네</button>
+          </div>
+        </article>
+
+        <article class="invite-card" id="section-place">
+          <p class="invite-label">PLACE</p>
+          <p class="invite-body">MoranMini HOUSE</p>
+        </article>
+
+        <article class="invite-card" id="section-map">
+          <p class="invite-label">MAP</p>
+          <div class="map-placeholder" role="img" aria-label="지도">
+            <svg viewBox="0 0 280 180" aria-hidden="true">
+              <rect x="10" y="10" width="260" height="160" rx="16" fill="#efe6d8" stroke="#c9a87c" stroke-width="2"/>
+              <circle cx="140" cy="90" r="28" fill="#e8c9a8" stroke="#b8956e" stroke-width="2"/>
+              <path d="M140 62 v56 M112 90 h56" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </article>
+
+        <article class="invite-card" id="section-house-info">
+          <p class="invite-label">HOUSE INFO</p>
+          <p class="invite-body parking">주차는 바로 앞 경비실에서<br>방문증을 발급 받아 주세요😁</p>
+        </article>
+
+        <article class="invite-card invite-card--end" id="section-end">
+          <p class="invite-label">END</p>
+          <p class="invite-body">또 만나요 🏠</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Menu popup -->
+    <div class="popup" id="menu-popup" hidden>
+      <div class="popup__card">
+        <p>그냥 주는 대로 먹어~😁</p>
+        <button type="button" class="btn btn--primary btn--small" id="btn-popup-close">알겠어요</button>
+      </div>
+    </div>
+  </div>
+
+  <audio id="audio-doorbell" src="static/audio/doorbell.mp3" preload="auto"></audio>
+  <audio id="audio-door-open" src="static/audio/door-open.mp3" preload="auto"></audio>
+  <audio id="audio-bgm" src="static/audio/%EB%9F%AC%EB%B8%8C%ED%95%98%EC%9A%B0%EC%8A%A4%20%EB%B8%8C%EA%B8%88%20-%20KER%20FLU-trimmed.mp3" preload="auto" loop></audio>
+
+  <script src="static/js/app.js"></script>
+</body>
+</html>
