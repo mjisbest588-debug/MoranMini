@@ -57,8 +57,8 @@ def test_static_assets(client):
     assets = [
         "/housewarming/static/css/style.css",
         "/housewarming/static/js/app.js",
-        "/housewarming/static/images/tshirt-1.png",
-        "/housewarming/static/images/door-before.png",
+        "/housewarming/static/images/tshirt-1.jpg",
+        "/housewarming/static/images/door-before.jpg",
         "/housewarming/static/audio/doorbell.mp3",
     ]
     for path in assets:
