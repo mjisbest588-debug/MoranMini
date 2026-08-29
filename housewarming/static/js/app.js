@@ -12,6 +12,7 @@ const AUDIO = {
   knockAnimMs: 500,
   doorOpenDelayMs: 200,
   invitationDelayMs: 950,
+  knockEarlyMs: 1000,
 };
 
 const SCENES = [
@@ -29,6 +30,8 @@ const state = {
   scene: "scene-main",
   bgmEnabled: true,
   menuPopupShown: false,
+  knockHandled: false,
+  doorOpenAudioStarted: false,
 };
 
 const els = {
@@ -116,24 +119,58 @@ async function onTshirtTap(id, button) {
   }
 }
 
+function waitForAudioEnd(audio) {
+  if (!audio) return Promise.resolve();
+  return new Promise((resolve) => {
+    if (audio.ended) {
+      resolve();
+      return;
+    }
+    audio.addEventListener("ended", () => resolve(), { once: true });
+  });
+}
+
+async function startDoorOpenAudio() {
+  if (state.doorOpenAudioStarted || !els.doorOpen) return;
+  state.doorOpenAudioStarted = true;
+  els.doorOpen.volume = AUDIO.doorOpenVolume;
+  els.doorOpen.currentTime = 0;
+  const playPromise = els.doorOpen.play();
+  if (playPromise && typeof playPromise.catch === "function") {
+    playPromise.catch(() => {});
+  }
+}
+
 async function onDoorbell() {
   els.btnDoorbell.classList.add("is-ringing");
   els.btnDoorbell.disabled = true;
   await playAudio(els.doorbell, AUDIO.doorbellVolume);
   await wait(AUDIO.dingdongDelayMs);
   showScene("scene-dingdong");
+  const knockAudioLeadMs =
+    AUDIO.doorBeforeDelayMs + AUDIO.knockAnimMs + AUDIO.doorOpenDelayMs - AUDIO.knockEarlyMs;
+  setTimeout(() => {
+    startDoorOpenAudio();
+  }, knockAudioLeadMs);
   await wait(AUDIO.doorBeforeDelayMs);
   showScene("scene-door-before");
+  onKnock();
 }
 
 async function onKnock() {
+  if (state.knockHandled) return;
+  state.knockHandled = true;
   els.btnKnock.disabled = true;
   els.btnKnock.textContent = "똑똑";
   await wait(AUDIO.knockAnimMs);
   showScene("scene-door-open");
   await wait(AUDIO.doorOpenDelayMs);
-  await playAudio(els.doorOpen, AUDIO.doorOpenVolume);
-  await wait(AUDIO.invitationDelayMs);
+  if (!state.doorOpenAudioStarted) {
+    await playAudio(els.doorOpen, AUDIO.doorOpenVolume);
+  } else {
+    await waitForAudioEnd(els.doorOpen);
+  }
+  await wait(AUDIO.invitationDelayMs + AUDIO.knockEarlyMs);
   showScene("scene-invitation");
   startBgm();
 }
