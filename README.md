@@ -34,6 +34,20 @@ python -m py_compile app.py
 - `static/images/tshirt-1.png`, `tshirt-2.png`, `door-before.png`, `qr-moranmini-house.png`
 - `static/audio/doorbell.mp3`, `door-open.mp3`, `러브하우스 브금 - KER FLU-trimmed.mp3`
 
+## Issue-Shorts 배포 (기존 URL 사용)
+
+`https://issue-shorts-o7r2bqr5fq-du.a.run.app/housewarming/` 에서 서비스하려면 Issue-Shorts FastAPI 앱에 라우트를 추가해야 합니다.
+
+1. `integrations/issue_shorts/INTEGRATION.md` 참고
+2. `housewarming/` + `integrations/issue_shorts/housewarming_router.py` 를 Issue-Shorts 저장소에 복사
+3. `app.include_router(create_housewarming_router())` 등록 후 Cloud Run 재배포
+
+QR 재생성:
+
+```bash
+python scripts/generate_housewarming_qr.py
+```
+
 ## 구조
 
 ```
