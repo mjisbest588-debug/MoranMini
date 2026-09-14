@@ -1,0 +1,97 @@
+# Deploy MoranMini HOUSE to Cloud Run on every push/merge to main.
+#
+# Auto-deploy trigger: push to `main` only (PR merge included, since a
+# merge produces a push event on main).
+#
+# One-time GCP setup required (see repo README / task report):
+#   1. Create a deploy service account in project `moranmini-house`
+#   2. Grant it: roles/run.admin, roles/artifactregistry.writer,
+#      roles/cloudbuild.builds.editor, roles/storage.admin,
+#      roles/iam.serviceAccountUser
+#   3. Create a JSON key for that service account
+#   4. GitHub repo → Settings → Secrets and variables → Actions
+#      → New repository secret → name: GCP_SA_KEY → value: the JSON key
+#
+# No credentials are stored in this file or anywhere in the repo — the
+# key only ever lives in the GitHub Actions encrypted secret.
+name: Deploy Cloud Run
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-cloud-run
+  cancel-in-progress: false
+
+env:
+  PROJECT: moranmini-house
+  REGION: asia-northeast3
+  SERVICE: moranmini-house
+
+jobs:
+  deploy:
+    name: Build & Deploy to Cloud Run
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check GCP_SA_KEY secret
+        env:
+          HAS_GCP_SA_KEY: ${{ secrets.GCP_SA_KEY != '' }}
+        run: |
+          set -euo pipefail
+          if [ "${HAS_GCP_SA_KEY}" != "true" ]; then
+            echo "::error::Missing GitHub Actions secret GCP_SA_KEY."
+            echo "Add it under Repo Settings -> Secrets and variables -> Actions."
+            echo "See the workflow file header for the one-time GCP setup steps."
+            exit 1
+          fi
+          echo "OK: GCP_SA_KEY secret is present"
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Deploy to Cloud Run
+        run: |
+          set -euo pipefail
+          gcloud config set project "${PROJECT}"
+          echo "HEAD=$(git rev-parse --short HEAD)"
+          gcloud run deploy "${SERVICE}" \
+            --source . \
+            --project "${PROJECT}" \
+            --region "${REGION}" \
+            --allow-unauthenticated \
+            --quiet
+
+      - name: Summary (URL + revision)
+        if: always()
+        run: |
+          set -euo pipefail
+          URL="$(gcloud run services describe "${SERVICE}" --region="${REGION}" --format='value(status.url)' 2>/dev/null || true)"
+          REV="$(gcloud run services describe "${SERVICE}" --region="${REGION}" --format='value(status.latestReadyRevisionName)' 2>/dev/null || true)"
+          {
+            echo "## Deploy Cloud Run"
+            echo "- commit: \`$(git rev-parse --short HEAD 2>/dev/null || echo unknown)\`"
+            echo "- project: \`${PROJECT}\`"
+            echo "- region: \`${REGION}\`"
+            echo "- service: \`${SERVICE}\`"
+            if [ -n "${URL}" ]; then
+              echo "- url: ${URL}"
+              echo "- latestReadyRevision: \`${REV:-unknown}\`"
+            else
+              echo "- status: not available (auth/deploy may have failed)"
+            fi
+          } >> "${GITHUB_STEP_SUMMARY}"
