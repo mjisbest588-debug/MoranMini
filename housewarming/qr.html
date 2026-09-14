@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4eadc" />
+  <meta name="description" content="MoranMini HOUSE 집들이 QR" />
+  <meta name="apple-mobile-web-app-title" content="MoranMini HOUSE" />
+  <title>MoranMini HOUSE QR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f4eadc;
+      --paper: #fbf6ee;
+      --ink: #4a3728;
+      --muted: #8d7263;
+      --font: "Jua", "Apple SD Gothic Neo", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      font-family: var(--font);
+      color: var(--ink);
+      background: var(--bg);
+      display: grid;
+      place-items: center;
+      padding: 1.5rem;
+    }
+    .card {
+      width: min(100%, 360px);
+      background: var(--paper);
+      border-radius: 24px;
+      padding: 1.6rem 1.35rem 1.45rem;
+      text-align: center;
+      box-shadow: 0 12px 28px rgba(90, 50, 30, 0.12);
+    }
+    h1 {
+      margin: 0 0 0.35rem;
+      font-size: 1.55rem;
+      font-weight: 400;
+    }
+    p {
+      margin: 0 0 1rem;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 0.95rem;
+      word-break: keep-all;
+    }
+    img {
+      width: min(72vw, 260px);
+      height: auto;
+      display: block;
+      margin: 0 auto 1rem;
+      border-radius: 16px;
+      background: #fff8f0;
+    }
+    a.btn {
+      display: inline-block;
+      padding: 0.78rem 1.1rem;
+      border-radius: 999px;
+      background: #5c4033;
+      color: #fff8f0;
+      text-decoration: none;
+      font-family: var(--font);
+      font-size: 1rem;
+    }
+    .hint {
+      margin-top: 0.85rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>MoranMini HOUSE</h1>
+    <p>집들이 초대장 QR<br />스캔하면 바로 초대장으로 연결돼요</p>
+    <img src="assets/qr-moranmini-house.png" width="540" height="540" alt="MoranMini HOUSE 집들이 QR 코드" />
+    <a class="btn" href="assets/qr-moranmini-house.png" download="moranmini-house-qr.png">QR 이미지 저장</a>
+    <p class="hint">인쇄·카톡 공유용 PNG</p>
+  </main>
+</body>
+</html>
