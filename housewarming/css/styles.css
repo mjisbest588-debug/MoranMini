@@ -553,7 +553,7 @@ body[data-view="invite"] .phone {
 
 .interlude {
   margin: 0;
-  padding: 3.4rem 0.6rem;
+  padding: 3.4rem 0.6rem 0.5rem;
   text-align: center;
   font-size: 1.02rem;
   line-height: 1.6;
@@ -569,6 +569,16 @@ body[data-view="invite"] .phone {
   color: var(--ink);
   font-weight: 400;
   font-family: var(--font-housewarming);
+}
+
+.countdown {
+  margin: 0;
+  padding: 0 0.6rem 3.4rem;
+  text-align: center;
+  font-size: 1.08rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: var(--accent);
 }
 
 .block-menu {
@@ -931,7 +941,11 @@ body[data-view="invite"] .phone {
   }
 
   .interlude {
-    padding: 2.6rem 0.5rem;
+    padding: 2.6rem 0.5rem 0.4rem;
+  }
+
+  .countdown {
+    padding: 0 0.5rem 2.6rem;
   }
 }
 
