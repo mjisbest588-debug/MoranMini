@@ -166,6 +166,13 @@ a {
   color: var(--ink);
 }
 
+.birthday-line {
+  margin: 0.22rem 0 0;
+  text-align: center;
+  font-size: clamp(0.98rem, 4vw, 1.15rem);
+  color: var(--accent);
+}
+
 .hero-copy,
 .when,
 .cta-wrap {
