@@ -11,7 +11,7 @@ window.MORANMINI = {
   timeResult: "십구시",
   timePm: "(7PM)",
   timeDisplay: "십구시 (7PM)",
-  dateTimeLine: "2026.09.18 (금요일) 19:00 (7PM)",
+  dateTimeLine: "2026.09.18 (금) 7PM",
   timeIso: "2026-09-18T19:00",
   address: "울산광역시 동구 안산로 50 동부아파트 113동 1403호",
   addressLines: ["울산광역시 동구 안산로 50", "동부아파트 113동 1403호"],
