@@ -587,14 +587,10 @@ body[data-view="invite"] .phone {
 }
 
 .menu-title {
-  margin: 0 0 0.3rem;
+  margin: 0 0 0.85rem;
   font-size: clamp(1.55rem, 7.2vw, 1.95rem);
   line-height: 1.25;
   color: var(--ink);
-}
-
-.menu-hint {
-  margin: 0 0 0.85rem;
 }
 
 .menu-board {
