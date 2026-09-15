@@ -169,6 +169,7 @@ a {
 .birthday-line {
   margin: 0.22rem 0 0;
   text-align: center;
+  font-family: var(--font-housewarming);
   font-size: clamp(0.98rem, 4vw, 1.15rem);
   color: var(--accent);
 }
