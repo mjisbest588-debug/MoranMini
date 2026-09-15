@@ -170,7 +170,8 @@ a {
   margin: 0.22rem 0 0;
   text-align: center;
   font-family: var(--font-housewarming);
-  font-size: clamp(0.98rem, 4vw, 1.15rem);
+  font-size: clamp(1.72rem, 7.2vw, 2.15rem);
+  line-height: 1.2;
   color: var(--accent);
 }
 
@@ -587,10 +588,14 @@ body[data-view="invite"] .phone {
 }
 
 .menu-title {
-  margin: 0 0 0.85rem;
+  margin: 0 0 0.3rem;
   font-size: clamp(1.55rem, 7.2vw, 1.95rem);
   line-height: 1.25;
   color: var(--ink);
+}
+
+.menu-hint {
+  margin: 0 0 0.85rem;
 }
 
 .menu-board {
@@ -903,7 +908,8 @@ body[data-view="invite"] .phone {
 }
 
 @media (max-width: 374px) {
-  .brand {
+  .brand,
+  .birthday-line {
     font-size: 1.55rem;
   }
 
@@ -931,7 +937,8 @@ body[data-view="invite"] .phone {
     gap: 0.32rem;
   }
 
-  .brand {
+  .brand,
+  .birthday-line {
     font-size: clamp(1.5rem, 6.4vw, 1.9rem);
   }
 
