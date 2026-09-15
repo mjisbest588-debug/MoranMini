@@ -170,8 +170,7 @@ a {
   margin: 0.22rem 0 0;
   text-align: center;
   font-family: var(--font-housewarming);
-  font-size: clamp(1.72rem, 7.2vw, 2.15rem);
-  line-height: 1.2;
+  font-size: clamp(0.98rem, 4vw, 1.15rem);
   color: var(--accent);
 }
 
@@ -908,8 +907,7 @@ body[data-view="invite"] .phone {
 }
 
 @media (max-width: 374px) {
-  .brand,
-  .birthday-line {
+  .brand {
     font-size: 1.55rem;
   }
 
@@ -937,8 +935,7 @@ body[data-view="invite"] .phone {
     gap: 0.32rem;
   }
 
-  .brand,
-  .birthday-line {
+  .brand {
     font-size: clamp(1.5rem, 6.4vw, 1.9rem);
   }
 
