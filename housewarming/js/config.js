@@ -31,7 +31,7 @@ window.MORANMINI = {
     "주차는 바로 앞 경비실에서\n방문증을 발급 받아 주세요😁",
   ],
   closing: {
-    title: "오늘, 우리 집에서 만나요",
+    title: "우리 집에서 만나요👋",
     sign: "MoranMini HOUSE",
   },
 };
