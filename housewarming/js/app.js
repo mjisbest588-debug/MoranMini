@@ -64,8 +64,10 @@
     (cfg.interludes || []).forEach((item, i) => {
       const el = document.querySelector(`[data-interlude="${i}"]`);
       if (!el) return;
-      el.innerHTML =
-        `<strong class="display">${escapeHtml(item.kicker || "")}</strong>${escapeHtml(item.line || "")}`;
+      const kicker = item.kicker
+        ? `<strong class="display">${escapeHtml(item.kicker)}</strong>`
+        : "";
+      el.innerHTML = kicker + escapeHtml(item.line || "");
     });
 
     const rsvpPrompt = document.getElementById("rsvpPrompt");
@@ -261,6 +263,31 @@
       .join("");
   }
 
+  function startCountdown() {
+    const el = document.getElementById("countdownText");
+    if (!el || !cfg.timeIso) return;
+    const target = new Date(cfg.timeIso).getTime();
+    if (Number.isNaN(target)) return;
+
+    const pad = (n) => String(n).padStart(2, "0");
+
+    function tick() {
+      const diff = target - Date.now();
+      if (diff <= 0) {
+        el.textContent = "D-DAY 🎉";
+        return;
+      }
+      const days = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const minutes = Math.floor((diff % 3600000) / 60000);
+      const seconds = Math.floor((diff % 60000) / 1000);
+      el.textContent = `D-${days} ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+    }
+
+    tick();
+    window.setInterval(tick, 1000);
+  }
+
   function setupReveal() {
     const nodes = document.querySelectorAll(".screen--invite .reveal");
     if (reduceMotion) {
@@ -425,5 +452,6 @@
   initAudio();
   applyCopy();
   wireMaps();
+  startCountdown();
   setView("main");
 })();
